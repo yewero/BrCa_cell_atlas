@@ -34,7 +34,7 @@ echo ${BCLPATH}
 ###  working directory
 TEMPPWD=$(pwd)
 ###  path to cellranger v2.2.0
-CELLRANGER="/share/ClusterShare/software/contrib/CTP_single_cell/cellranger/cellranger-3.0.2/cellranger"
+CELLRANGER="/home/tianf/lustre/Tools/cellranger-3.0.2/cellranger"
 ##--------------------------------------- MAKE DIRECTORIES
 if [[ "${STEP01}" == "TRUE" ]]; then
 

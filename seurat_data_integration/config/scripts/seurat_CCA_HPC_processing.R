@@ -293,9 +293,9 @@ temp_thresh.use <-
   as.numeric(as.character((temp_params["minimum_threshold_diff_min.thresh.use",])))  
 
 #exporting matrix and associated metadata (T or F)
-temp_export_normalised_matrix <- 
-  as.logical(temp_params["Export_raw_UMI_matrix",]) 
 temp_export_raw_UMI_matrix <- 
+  as.logical(temp_params["Export_raw_UMI_matrix",]) 
+temp_export_normalised_matrix <- 
   as.logical(temp_params["Export_raw_normalised_matrix",]) 
 
 # GARNETT

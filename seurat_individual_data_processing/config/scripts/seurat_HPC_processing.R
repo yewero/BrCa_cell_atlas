@@ -105,7 +105,7 @@
 #
 # LOAD PACKAGES -----------------------------------------------------------
 
-library(Seurat)
+library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
 library(plyr)
 library(dplyr)
 library(Matrix)
@@ -252,9 +252,9 @@ if(temp_run_garnett) {
 
 
 #exporting matrix and associated metadata (T or F)
-temp_export_normalised_matrix <- 
-  as.logical(temp_params["Export_raw_UMI_matrix",]) 
 temp_export_raw_UMI_matrix <- 
+  as.logical(temp_params["Export_raw_UMI_matrix",]) 
+temp_export_normalised_matrix <- 
   as.logical(temp_params["Export_raw_normalised_matrix",]) 
 
 # SET UP AND FUNCTIONS ------------------------------------------------------------------

@@ -4,15 +4,15 @@
 #
 #
 # Activate conda R enviroment
-source activate Renv
+#source activate Renv
 #
 # R PATH
-R="/share/ClusterShare/software/contrib/CTP_single_cell/tools/R_developers/config_R-3.5.0/bin/R"
+R="R"
 TEMPPWD=$(pwd)
-mkdir output/
+mkdir -p output
 # make output directories for individual samples
 for samplename in $(cut -d ',' -f 2 ./config/input_sample_file.csv | tail -n +2); do
-  mkdir output/seurat_$samplename/
+  mkdir -p output/seurat_$samplename
 done
 # submit jobs to cluster
 for samplenum in $(cut -d ',' -f 1 $TEMPPWD/config/input_sample_file.csv | tail -n +2); do
@@ -23,7 +23,7 @@ for samplenum in $(cut -d ',' -f 1 $TEMPPWD/config/input_sample_file.csv | tail 
   SEURATPARAMFILE="${TEMPPWD}/config/seurat_params_file.csv"
   SEURATSCRIPT="${TEMPPWD}/config/scripts/seurat_HPC_processing.R"
   SEURATJOBNAME="s_${SAMPLENAME}"
-  MATRIXPATH="/paella/TumourProgressionGroupTemp/projects/data/cellranger_count/human_breast/${SAMPLENAME}/count_*GRCh38/outs/raw_gene_bc_matrices/GRCh38/"
+  MATRIXPATH="/cellranger_count/${SAMPLENAME}/count_*GRCh38/outs/raw_gene_bc_matrices/GRCh38/"
   TEMPWD="${TEMPPWD}/output/seurat_${SAMPLENAME}/"
 
   cd ${TEMPPWD}/output/seurat_${SAMPLENAME}/

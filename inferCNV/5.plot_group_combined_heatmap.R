@@ -35,7 +35,7 @@ heatmap_prefix <- paste0(
 )
 
 if (include_normals) {
-  heatmap_prefix <- paste0(heatmap_prefix, "_normals_included"
+  heatmap_prefix <- paste0(heatmap_prefix, "_normals_included")
 }
 
 if (subset_samples) {

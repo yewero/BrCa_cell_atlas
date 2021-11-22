@@ -41,9 +41,9 @@ print(paste0("Subproject name = ", subproject_name))
 print(paste0("Sample name = ", sample_name))
 print(paste0("T-cells included?", as.character(include_t_cells)))
 
-lib_loc <- "/share/ScratchGeneral/jamtor/R/3.5dev/"
+lib_loc <- .libPaths()
 library(cluster, lib.loc = lib_loc)
-library(Seurat)
+library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
 library(RColorBrewer)
 library(ComplexHeatmap, lib.loc=lib_loc)
 library(circlize, lib.loc = lib_loc)

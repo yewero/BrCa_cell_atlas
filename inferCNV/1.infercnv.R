@@ -20,9 +20,9 @@ print(paste0("Subset data? ", as.character(subset_data)))
 print(paste0("Number cores = ", numcores))
 print(paste0("Include T cells? ", as.character(include_t_cells)))
 
-lib_loc <- "/share/ScratchGeneral/jamtor/R/3.5dev/"
+lib_loc <- .libPaths()
 library(cluster, lib.loc = lib_loc)
-library(Seurat)
+library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
 library(infercnv, lib.loc=lib_loc)
 library(RColorBrewer)
 library(ComplexHeatmap, lib.loc=lib_loc)
@@ -33,22 +33,17 @@ library(scales, lib.loc = lib_loc)
 library(fpc, lib.loc = lib_loc)
 library(dplyr)
 
-home_dir <- "/share/ScratchGeneral/jamtor/"
-project_dir <- paste0(home_dir, "projects/single_cell/", 
-  project_name, "/", subproject_name, "/")
-ref_dir <- paste0(project_dir, "refs/")
-func_dir <- paste0(project_dir, "scripts/functions/")
-results_dir <- seurat_path <- paste0(project_dir, "results/")
-in_dir <- paste0(project_dir, "raw_files/seurat_objects/", 
-  sample_name, "/")
-setwd(in_dir)
+project_dir <- paste0(project_name, "/", subproject_name, "/")
+ref_dir <- "refs/"
+func_dir <- "functions/"
+in_dir <- paste0("../seurat_individual_data_processing/output/seurat_", sample_name, "/")
 
 if (include_t_cells) {
-  out_dir <- paste0(results_dir, "infercnv/t_cells_included/", 
-    sample_name, "/")
+  out_dir <- paste0(project_dir, "t_cells_included/", 
+    sample_name)
 } else {
-  out_dir <- paste0(results_dir, "infercnv/t_cells_excluded/", 
-    sample_name, "/")
+  out_dir <- paste0(project_dir, "t_cells_excluded/", 
+    sample_name)
 }
 
 input_dir <- paste0(out_dir, "/input_files/")
@@ -57,9 +52,7 @@ plot_dir <- paste0(out_dir, "/plots/")
 system(paste0("mkdir -p ", plot_dir))
 table_dir <- paste0(out_dir, "/tables/")
 system(paste0("mkdir -p ", table_dir))
-integrated_dir <- paste0("/share/ScratchGeneral/sunwu/projects/", 
-  "MINI_ATLAS_PROJECT/Jun2019/04_reclustering_analysis/",
-  "run06_v1.2.1/output/Epithelial/02_Rdata/")
+integrated_dir <- "../reclustering_analysis/epithelial_cells"
 
 print(paste0("Sample directory = ", in_dir))
 print(paste0("Reference directory = ", ref_dir))

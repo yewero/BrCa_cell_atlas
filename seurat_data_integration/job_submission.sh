@@ -4,19 +4,19 @@
 #
 #
 # Activate conda R enviroment
-source activate Renv
+#source activate Renv
 #
 #
 # RUN ID
 SAMPLEIDS="CCA23Jun2019"
 #
 # R PATH
-R="/share/ClusterShare/software/contrib/CTP_single_cell/tools/R_developers/config_R-3.5.0/bin/R"
+R="R"
 TEMPPWD=$(pwd)
 # output directory structure
-mkdir output
+mkdir -p output
 for SAMPLENAME in ${SAMPLEIDS}; do
-  mkdir output/CCA_${SAMPLENAME}
+  mkdir -p output/CCA_${SAMPLENAME}
 done
 # SUBMIT JOBS
 for SAMPLENAME in ${SAMPLEIDS}; do
@@ -37,7 +37,7 @@ for SAMPLENAME in ${SAMPLEIDS}; do
   # job name
   SEURATJOBNAME="sCCA_${SAMPLENAME}"
   # path to individual seurat objects
-  OBJECTSPATH="/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/Jun2019/01_individual_samples/output/"
+  OBJECTSPATH="${TEMPPWD}/../seurat_individual_data_processing/output"
 
   # cd to directory
   cd $TEMPPWD/output/CCA_${SAMPLENAME}/

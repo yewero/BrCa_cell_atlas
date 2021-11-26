@@ -1,6 +1,6 @@
 #First source the code and set all the files needed in the working directory
 source('DifferentiationPredictor_functions.R')
-source('arrayTools_MBSedits_collapseID.R')
+source('../bulk_RNASeq_processing/Zhao_ER_HER2_correction/arrayTools_MBSedits_collapseID.R')
 
 #Read in the files
 limModelFile<- "differentiationCentroids_LimDWD_Genes.txt"
@@ -11,7 +11,7 @@ Singlecell<-readarray("Swarbrick_Tumorcells_Top2000expressedgenes.txt",impute=F,
 diffScore<-assignDiffScore.dwd(Singlecell,lim)
 
 #Calculate Proliferation Score
-sigdat<-read.table("Proliferation signature_UNC_Genes symbol.txt",sep="\t",header=F,row.names=1,fill=T)
+sigdat<-read.table("Proliferation_signature_UNC_Genes_symbol.txt",sep="\t",header=F,row.names=1,fill=T)
 tocalc<-read.table("Swarbrick_Tumorcells_Top2000expressedgenes.txt",sep="\t",header=T, row.names=1)
 
 outdat <- matrix(0,nrow=nrow(sigdat),

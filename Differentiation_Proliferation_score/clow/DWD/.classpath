@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="jfreechart-0.9.21.jar"/>
+	<classpathentry exported="true" kind="lib" path="jcommon-0.9.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="gnujaxp.jar"/>
+	<classpathentry exported="true" kind="lib" path="junit.jar"/>
+	<classpathentry exported="true" kind="lib" path="servlet.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/DWD/xerces.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/DWD/xercesImpl.jar"/>
+	<classpathentry exported="true" kind="lib" path="MAGEstk-2004-11-29-v1.1-compatible.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

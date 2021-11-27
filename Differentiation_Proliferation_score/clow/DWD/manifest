@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: edu.unc.LCCC.caBIG.DWD.javaCode.DWD
+Class-Path: jfreechart-0.9.21.jar jcommon-0.9.6.jar junit.jar gnujaxp.jar servlet.jar MAGEstk-2004-11-29-v1.1-compatible.jar xerces.jar xercesImpl.jar
+

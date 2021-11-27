@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="_generation_" name="XDoclet Generator">
+<path id="xdoclet.classpath">
+<fileset dir="C:/Program Files/MyEclipse/eclipse/plugins/com.genuitec.jboss.ide.eclipse.xdoclet.core_3.8.1">
+<include name="*.jar"/>
+</fileset><pathelement location="C:/DWD/bin"/>
+<pathelement location="C:/j2sdk1.4.2_05/jre/lib/rt.jar"/>
+<pathelement location="C:/j2sdk1.4.2_05/jre/lib/sunrsasign.jar"/>
+<pathelement location="C:/j2sdk1.4.2_05/jre/lib/jsse.jar"/>
+<pathelement location="C:/j2sdk1.4.2_05/jre/lib/jce.jar"/>
+<pathelement location="C:/j2sdk1.4.2_05/jre/lib/charsets.jar"/>
+<pathelement location="C:/j2sdk1.4.2_05/jre/lib/ext/MAGEstk-2004-11-29-v1.1-compatible.jar"/>
+<pathelement location="C:/DWD/jfreechart-0.9.21.jar"/>
+<pathelement location="C:/DWD/jcommon-0.9.6.jar"/>
+<pathelement location="C:/DWD/gnujaxp.jar"/>
+<pathelement location="C:/DWD/junit.jar"/>
+<pathelement location="C:/DWD/servlet.jar"/>
+<pathelement location="C:/DWD/xerces.jar"/>
+<pathelement location="C:/DWD/xercesImpl.jar"/>
+<pathelement location="C:/DWD/MAGEstk-2004-11-29-v1.1-compatible.jar"/>
+</path>
+<target name="_generation_" depends=""/>
+</project>

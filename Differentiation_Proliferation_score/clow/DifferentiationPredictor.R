@@ -2,7 +2,7 @@
 # set input variables
 ###
 
-setwd("~/lustre/learn/Wu_NG_2021/BrCa_cell_atlas/Differentiation_Proliferation_score/clow")
+setwd("E:/Chuck/lab support/Aleix/Claudin paper/DifferentiationPredictor/")
 source("DifferentiationPredictor_functions.R")
 
 # name the input files

@@ -1,10 +1,16 @@
 #First source the code and set all the files needed in the working directory
+suppressMessages({
+  library("org.Hs.eg.db")
+  library("annotate")
+})
 source('DifferentiationPredictor_functions.R')
 source('../bulk_RNASeq_processing/Zhao_ER_HER2_correction/arrayTools_MBSedits_collapseID.R')
 
 #Read in the files
 limModelFile<- "clow/differentiationCentroids_LimDWD.txt"
 lim<-readarray(limModelFile,hr=1)
+rownames(lim$xd) <- getSYMBOL(rownames(lim$xd), data='org.Hs.eg')
+
 Singlecell<-readarray("Swarbrick_Tumorcells_Top2000expressedgenes.txt",impute=F, hr=1)
 
 #Calculate Differentiation Score

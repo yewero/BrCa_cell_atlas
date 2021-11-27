@@ -4,8 +4,8 @@
 library(ctc)
 library(heatmap.plus)
 
-paramDir<- "C:/Users/JParker/Desktop/bioclassifier_R" # the location of unchanging files such as the function library and main program
-inputDir<- "C:/Users/JParker/Desktop/bioclassifier_example"  # the location of the data matrix, and where output will be located
+paramDir<- "../PAM50_R" # the location of unchanging files such as the function library and main program
+inputDir<- "."  # the location of the data matrix, and where output will be located
 
 inputFile<- "sampleInputFile_200subjects.txt" # the input data matrix as a tab delimited text file
 short<-"sampleInputFile_200subjects" # short name that will be used for output files
@@ -14,7 +14,7 @@ calibrationParameters<- NA 	#the column of the "mediansPerDataset.txt" file to u
 														#NA will force centering within the test set & -1 will not do any 
 														#adjustment (when adjustment performed by used)
 
-hasClinical<-FALSE 	#may include tumor size as second row, with 'T' as the gene name, 
+hasClinical<-T 	#may include tumor size as second row, with 'T' as the gene name, 
 										#and encoded as binary (0 for size <= 2cm or 1 for size > 2cm)
 										#set this variable to FALSE if tumor size is not available
 

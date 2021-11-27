@@ -3,7 +3,7 @@ source('DifferentiationPredictor_functions.R')
 source('../bulk_RNASeq_processing/Zhao_ER_HER2_correction/arrayTools_MBSedits_collapseID.R')
 
 #Read in the files
-limModelFile<- "differentiationCentroids_LimDWD_Genes.txt"
+limModelFile<- "clow/differentiationCentroids_LimDWD.txt"
 lim<-readarray(limModelFile,hr=1)
 Singlecell<-readarray("Swarbrick_Tumorcells_Top2000expressedgenes.txt",impute=F, hr=1)
 

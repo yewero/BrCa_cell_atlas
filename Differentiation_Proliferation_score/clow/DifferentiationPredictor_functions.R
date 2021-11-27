@@ -131,8 +131,9 @@ dwd<-function(x,y){
 
 	x<-rbind(y,x)
 	
-	cwd<-getwd()
-	setwd("C:/DWD/DWDdata")
+	dir.create("DWDdata", showWarnings = F)
+	setwd("DWDdata")
+	
 	write.table(x,"DWD_Input.txt",sep="\t",col.names=F,row.names=F)
 
 	twd<-getwd()
@@ -141,7 +142,7 @@ dwd<-function(x,y){
 	y<-0
 	write(y,"DWD_MeanAdjustType.txt")
 
-	setwd("C:/DWD/lib")
+	setwd("../DWD/lib")
 	system("BatchAdjustSM.exe",invisible=T)
 
 	setwd("C:/DWD/DWDdata")

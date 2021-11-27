@@ -1,0 +1,2 @@
+wget -c https://genome-publications.bioinf.unc.edu/clow/DifferentiationPredictor.zip
+unzip DifferentiationPredictor.zip

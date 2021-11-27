@@ -2,7 +2,6 @@
 # set input variables
 ###
 
-setwd("E:/Chuck/lab support/Aleix/Claudin paper/DifferentiationPredictor/")
 source("DifferentiationPredictor_functions.R")
 
 # name the input files

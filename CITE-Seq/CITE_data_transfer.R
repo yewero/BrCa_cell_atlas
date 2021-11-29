@@ -2,7 +2,7 @@
 #with standard Seurat protocol: https://satijalab.org/seurat/archive/v3.0/integration.html
 #and within specific cell types only.
 
-library(Seurat)
+library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
 library(dplyr)
 library(Matrix)
 library(sctransform)

@@ -38,7 +38,7 @@ BCs<-unlist(cellTypesBarcodes)
 sampleNames<-unique(gsub("_.*","",BCs))
 
 #select sample names for samples with CITE information
-sampleNames_CITE<-sampleNames[grepl("3838|3946|4040|4378|4515",sampleNames)]
+sampleNames_CITE<-sampleNames[grepl("3838|3946|4040|4398|4515",sampleNames)]
 
 #create individual whitelists to be used for processing of raw CITE data
 for(sampleName in sampleNames_CITE){

@@ -12,10 +12,10 @@
 
 # setup
 library(zeallot)
+library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
 library(STutility)
 library(ggplot2)
 library(magrittr)
-library(Seurat)
 library(magick)
 library(dplyr)
 library(RColorBrewer)
@@ -27,12 +27,27 @@ setwd("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/data_proc
 
 # 02: PREPARE INPUT DATA --------------------------------------------------
 
-temp_csv <- read.csv("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/Meta_Data.csv")
-infiles <- list.files("/share/ScratchGeneral/sunwu/projects/spatial/data_Zenodo_miniatlas/", full.names = T, recursive = T)
-infiles_h5 <- list.files("/share/ScratchGeneral/sunwu/projects/spatial/data_Zenodo_miniatlas/raw_feature_bc_matrix_h5", full.names = T, recursive = T)
+# create meta
+if(! all(file.exists("../../data/Zenodo4739739/Meta_Data.csv", "../../data/Zenodo4739739/Meta_Data_bySample.csv"))) {
+  meta_files <- list.files("../../data/Zenodo4739739/metadata/", full.names = T)
+  meta_LS <- lapply(meta_files, function(x) {
+    y <- read.csv(x, header = T, stringsAsFactors = F, row.names = 1)
+    y <- y[, c("nCount_RNA", "nFeature_RNA", "patientid", "subtype", "Classification")]
+    return(y)
+  })
+  meta_DF <- do.call("rbind", meta_LS)
+  meta_bySample <- unique(meta_DF[, 3:4])
+  rownames(meta_bySample) <- NULL
+  write.csv(x = meta_DF, file = "../../data/Zenodo4739739/Meta_Data.csv", row.names = T, quote = F)
+  write.csv(x = meta_bySample, file = "../../data/Zenodo4739739/Meta_Data_bySample.csv", row.names = F, quote = F)
+}
+
+temp_csv <- read.csv("../../data/Zenodo4739739/Meta_Data_bySample.csv", stringsAsFactors = F)
+infiles <- list.files("../../data/Zenodo4739739/spatial", full.names = T, recursive = T)
+infiles_h5 <- list.files("../../data/Zenodo4739739/raw_count_matrices", full.names = T, recursive = F)
 
 infoTable <- NULL
-for(sample in unique(temp_csv$Clinical_Case)){
+for(sample in unique(temp_csv$patientid)){
   print(sample)
   infiles_sample <- grep(sample,infiles,value = T)
   infiles_sample_h5 <- grep(sample,infiles_h5,value = T)
@@ -42,7 +57,7 @@ for(sample in unique(temp_csv$Clinical_Case)){
                        spotfiles=as.character(grep("tissue_positions",infiles_sample,value = T)),
                        json=as.character(grep("json",infiles_sample,value = T)),
                        patientid=sample,
-                       subtype=temp_csv[temp_csv$Clinical_Case==sample,"subtype"])
+                       subtype=temp_csv[temp_csv$patientid==sample,"subtype"])
   infoTable <- rbind(infoTable, temp_df)
 }
 
@@ -83,7 +98,7 @@ for(sample in unique(infoTable$patientid)){
 
 # 04: ADD PATH ANNOTATIONS ----------------------------------------------------
 
-temp_path <- "/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/Garvan_PhaseII_spaceranger_loupe_annotations/"
+temp_path <- "spaceranger_loupe_annotations/"
 temp_csv_combined <- NULL
 for(sample in unique(infoTable$patientid)){
   if(sample == "1142243F"){

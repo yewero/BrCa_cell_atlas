@@ -249,4 +249,4 @@ for(sample in unique(infoTable$patientid)){
 
 # SAVE RDS ----------------------------------------------------------------
 
-saveRDS(se.list, "RDATA_Visium_brca_objects.Rdata")
+saveRDS(se.list, file.path(out_dir, "RDATA_Visium_brca_objects.Rdata"))

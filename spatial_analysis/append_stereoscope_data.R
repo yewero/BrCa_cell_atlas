@@ -12,10 +12,10 @@
 
 # setup
 library(zeallot)
+library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
 library(STutility)
 library(ggplot2)
 library(magrittr)
-library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
 library(magick)
 library(dplyr)
 library(RColorBrewer)

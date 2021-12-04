@@ -22,8 +22,8 @@ library(RColorBrewer)
 library(ggpubr)
 
 # DIRECTORY
-dir.create("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/data_processing/")
-setwd("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/data_processing/")
+out_dir <- "data_processing"
+dir.create(out_dir, showWarnings = F)
 
 # 02: PREPARE INPUT DATA --------------------------------------------------
 
@@ -65,10 +65,7 @@ for(col in colnames(infoTable)){
   infoTable[,col] <- as.character(infoTable[,col])
 }
 
-write.csv(infoTable,
-          "infoTable.csv")
-
-
+write.csv(infoTable, file.path(out_dir, "infoTable.csv"))
 
 # 03: LOAD AND PROCESS DATA ---------------------------------------------------------------
 

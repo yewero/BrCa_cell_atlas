@@ -22,14 +22,14 @@ library(RColorBrewer)
 library(ggpubr)
 
 # DIRECTORY
-dir.create("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/append_stereoscope/")
-setwd("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/append_stereoscope/")
-
+dir.create("append_stereoscope", showWarnings = F)
 
 # 02: LOAD DATA -----------------------------------------------------------
 
 # processed STUtility objects
-se.list <- readRDS("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/data_processing/RDATA_Visium_brca_objects.Rdata")
+se.list <- readRDS("data_processing/RDATA_Visium_brca_objects.Rdata")
+
+infoTable <- read.csv(file = "data_processing/infoTable.csv", header = T, stringsAsFactors = F)
 
 # 03: APPEND STEREOSCOPE RESULTS ----------------------------------------------
 
@@ -57,7 +57,7 @@ for(sample in unique(infoTable$patientid)){
     sc <- sc.data.tnbc
     meta.data <- GetStaffli(se.list[[sample]])@meta.data
     meta.data$spotids <- rownames(meta.data)
-    tissue_positions <- subset(read.csv(infoTable$spotfiles[sample], 
+    tissue_positions <- subset(read.csv(infoTable$spotfiles[infoTable$patientid == sample], 
                                         header = F, 
                                         stringsAsFactors = FALSE), 
                                V2 == 1)

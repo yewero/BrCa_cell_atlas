@@ -31,14 +31,16 @@ dir.create(out_dir, showWarnings = F)
 if(! all(file.exists("../../data/Zenodo4739739/Meta_Data.csv", "../../data/Zenodo4739739/Meta_Data_bySample.csv"))) {
   meta_files <- list.files("../../data/Zenodo4739739/metadata/", full.names = T)
   meta_LS <- lapply(meta_files, function(x) {
-    y <- read.csv(x, header = T, stringsAsFactors = F, row.names = 1)
-    y <- y[, c("nCount_RNA", "nFeature_RNA", "patientid", "subtype", "Classification")]
+    y <- read.csv(x, header = T, stringsAsFactors = F)
+    colnames(y)[1] <- "spot"
+    rownames(y) <- y[, 1]
+    y <- y[, c("spot", "nCount_RNA", "nFeature_RNA", "patientid", "subtype", "Classification")]
     return(y)
   })
-  meta_DF <- do.call("rbind", meta_LS)
-  meta_bySample <- unique(meta_DF[, 3:4])
+  meta <- do.call("rbind", meta_LS)
+  meta_bySample <- unique(meta[, c("patientid", "subtype")])
   rownames(meta_bySample) <- NULL
-  write.csv(x = meta_DF, file = "../../data/Zenodo4739739/Meta_Data.csv", row.names = T, quote = F)
+  write.csv(x = meta, file = "../../data/Zenodo4739739/Meta_Data.csv", row.names = T, quote = F)
   write.csv(x = meta_bySample, file = "../../data/Zenodo4739739/Meta_Data_bySample.csv", row.names = F, quote = F)
 }
 
@@ -65,7 +67,7 @@ for(col in colnames(infoTable)){
   infoTable[,col] <- as.character(infoTable[,col])
 }
 
-write.csv(infoTable, file.path(out_dir, "infoTable.csv"))
+write.csv(infoTable, file.path(out_dir, "infoTable.csv"), row.names = F)
 
 # 03: LOAD AND PROCESS DATA ---------------------------------------------------------------
 
@@ -138,7 +140,7 @@ print(sort(as.vector(unique(temp_csv_combined[,2]))))
 for(sample in unique(infoTable$patientid)){
   print(sample)
   # print(head(se.list[[sample]]@meta.data))
-  
+
   temp_csv_combined_subset <- temp_csv_combined[temp_csv_combined$patientid == sample,,drop=F]
   print(head(temp_csv_combined_subset))
 }
@@ -153,7 +155,7 @@ for(sample in unique(infoTable$patientid)){
                                              paste0("-1_1"),
                                              rownames(temp_csv_combined_subset))
   colnames(temp_csv_combined_subset) <- c("Barcode", "Classification", "sample")
-  
+
   if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
     print("rows match")
     temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
@@ -161,29 +163,29 @@ for(sample in unique(infoTable$patientid)){
     print("rows dont match > filtering")
     temp_csv_combined_subset <- temp_csv_combined_subset[rownames(temp_csv_combined_subset) %in% rownames(se.list[[sample]]@meta.data),,drop=F]
   }
-  
+
   if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
     print("rows now match")
     temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
   } else {
     print("missing barcodes > appending as NA")
-    
+
     temp_missing_barcodes <- rownames(se.list[[sample]]@meta.data)[! rownames(se.list[[sample]]@meta.data) %in% rownames(temp_csv_combined_subset)]
     temp_csv_combined_subset_append <- data.frame(row.names = temp_missing_barcodes,
                                                   Barcode = temp_missing_barcodes,
                                                   Classification = "NA")
     temp_csv_combined_subset_append$sample <- sample
     temp_csv_combined_subset <- rbind(temp_csv_combined_subset,
-                                      temp_csv_combined_subset_append) 
+                                      temp_csv_combined_subset_append)
   }
-  
+
   if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
     print("rows now match")
     temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
   } else {
     print("rows still dont match")
   }
-  
+
   if(all.equal(rownames(temp_csv_combined_subset),
                rownames(se.list[[sample]]@meta.data))){
     print("vectors align")
@@ -192,15 +194,14 @@ for(sample in unique(infoTable$patientid)){
   } else {
     print("vectors dont align")
   }
-  
-  
-  
+
+
+
 }
 
-
 # plot new annotations
-dir.create("output/")
-dir.create("output/Path_annotations")
+dir.create("output", showWarnings = F)
+dir.create("output/Path_annotations", showWarnings = F)
 
 for(sample in unique(infoTable$patientid)){
   temp_sampleID <- paste0(unique(se.list[[sample]]@meta.data$patientid),

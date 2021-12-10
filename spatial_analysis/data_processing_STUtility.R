@@ -97,107 +97,124 @@ for(sample in unique(infoTable$patientid)){
 
 # 04: ADD PATH ANNOTATIONS ----------------------------------------------------
 
-temp_path <- "spaceranger_loupe_annotations/"
-temp_csv_combined <- NULL
-for(sample in unique(infoTable$patientid)){
-  if(sample == "1142243F"){
-    temp_csv <- read.csv(paste0(temp_path,"182964_1142243F_new.csv"))
-  }
-  if(sample == "1160920F"){
-    temp_csv <- read.csv(paste0(temp_path,"182968_1160920F_new.csv"))
-  }
-  if(sample == "CID4290"){
-    temp_csv <- read.csv(paste0(temp_path,"35_E2_4290_new.csv"))
-  }
-  if(sample == "CID4465"){
-    temp_csv <- read.csv(paste0(temp_path,"35_C2_4465_new.csv"))
-  }
-  if(sample == "CID44971"){
-    temp_csv <- read.csv(paste0(temp_path,"35_B1_4497-1_new.csv"))
-  }
-  if(sample == "CID4535"){
-    temp_csv <- read.csv(paste0(temp_path,"35_D1_4535_new.csv"))
-  }
+# temp_path <- "spaceranger_loupe_annotations/"
+# temp_csv_combined <- NULL
+# for(sample in unique(infoTable$patientid)){
+#   if(sample == "1142243F"){
+#     temp_csv <- read.csv(paste0(temp_path,"182964_1142243F_new.csv"))
+#   }
+#   if(sample == "1160920F"){
+#     temp_csv <- read.csv(paste0(temp_path,"182968_1160920F_new.csv"))
+#   }
+#   if(sample == "CID4290"){
+#     temp_csv <- read.csv(paste0(temp_path,"35_E2_4290_new.csv"))
+#   }
+#   if(sample == "CID4465"){
+#     temp_csv <- read.csv(paste0(temp_path,"35_C2_4465_new.csv"))
+#   }
+#   if(sample == "CID44971"){
+#     temp_csv <- read.csv(paste0(temp_path,"35_B1_4497-1_new.csv"))
+#   }
+#   if(sample == "CID4535"){
+#     temp_csv <- read.csv(paste0(temp_path,"35_D1_4535_new.csv"))
+#   }
+# 
+#   colnames(temp_csv) <- c("Barcode", "Classification")
+#   temp_csv$patientid <- paste0(unique(se.list[[sample]]@meta.data$patientid))
+#   # print(temp_sampleID)
+#   temp_csv_combined <- rbind(temp_csv_combined, temp_csv)
+# }
+# 
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "(Need to check) folding artefact"] <- "Artefact"
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "(Need to check) invasive cancer + lymphocytes"] <- "Invasive cancer + lymphocytes"
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "(Need to check) lymphocyte aggregation"] <- "Lymphocytes"
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "stroma"] <- "Stroma"
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == " stroma"] <- "Stroma"
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "invasive cancer + stroma + lymphocytes"] <- "Invasive cancer + stroma + lymphocytes"
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "stroma + adipose tissue"] <- "Stroma + adipose tissue"
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "Lymphocyte aggregation"] <- "Lymphocytes"
+# levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "Normal + stroma + Lymphocytes"] <- "Normal + stroma + lymphocytes"
+# 
+# print(sort(as.vector(unique(temp_csv_combined[,2]))))
+# 
+# for(sample in unique(infoTable$patientid)){
+#   print(sample)
+#   # print(head(se.list[[sample]]@meta.data))
+#   
+#   temp_csv_combined_subset <- temp_csv_combined[temp_csv_combined$patientid == sample,,drop=F]
+#   print(head(temp_csv_combined_subset))
+# }
+# 
+# # append path annotations for CTP samples
+# for(sample in unique(infoTable$patientid)){
+#   print(sample)
+#   temp_csv_combined_subset <- temp_csv_combined[temp_csv_combined$patientid == sample,,drop=F]
+#   rownames(temp_csv_combined_subset) <- temp_csv_combined_subset$Barcode
+#   # temp_newid <- sample-6
+#   rownames(temp_csv_combined_subset) <- gsub(paste0("-1"),
+#                                              paste0("-1_1"),
+#                                              rownames(temp_csv_combined_subset))
+#   colnames(temp_csv_combined_subset) <- c("Barcode", "Classification", "sample")
+#   
+#   if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
+#     print("rows match")
+#     temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
+#   } else {
+#     print("rows dont match > filtering")
+#     temp_csv_combined_subset <- temp_csv_combined_subset[rownames(temp_csv_combined_subset) %in% rownames(se.list[[sample]]@meta.data),,drop=F]
+#   }
+#   
+#   if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
+#     print("rows now match")
+#     temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
+#   } else {
+#     print("missing barcodes > appending as NA")
+#     
+#     temp_missing_barcodes <- rownames(se.list[[sample]]@meta.data)[! rownames(se.list[[sample]]@meta.data) %in% rownames(temp_csv_combined_subset)]
+#     temp_csv_combined_subset_append <- data.frame(row.names = temp_missing_barcodes,
+#                                                   Barcode = temp_missing_barcodes,
+#                                                   Classification = "NA")
+#     temp_csv_combined_subset_append$sample <- sample
+#     temp_csv_combined_subset <- rbind(temp_csv_combined_subset,
+#                                       temp_csv_combined_subset_append) 
+#   }
+#   
+#   if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
+#     print("rows now match")
+#     temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
+#   } else {
+#     print("rows still dont match")
+#   }
+#   
+#   if(all.equal(rownames(temp_csv_combined_subset),
+#                rownames(se.list[[sample]]@meta.data))){
+#     print("vectors align")
+#     se.list[[sample]]@meta.data$Classification <- temp_csv_combined_subset[,2]
+#     # print(table(se.list[[sample]]@meta.data$Classification))
+#   } else {
+#     print("vectors dont align")
+#   }
+#   
+#   
+#   
+# }
 
-  colnames(temp_csv) <- c("Barcode", "Classification")
-  temp_csv$patientid <- paste0(unique(se.list[[sample]]@meta.data$patientid))
-  # print(temp_sampleID)
-  temp_csv_combined <- rbind(temp_csv_combined, temp_csv)
-}
-
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "(Need to check) folding artefact"] <- "Artefact"
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "(Need to check) invasive cancer + lymphocytes"] <- "Invasive cancer + lymphocytes"
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "(Need to check) lymphocyte aggregation"] <- "Lymphocytes"
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "stroma"] <- "Stroma"
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == " stroma"] <- "Stroma"
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "invasive cancer + stroma + lymphocytes"] <- "Invasive cancer + stroma + lymphocytes"
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "stroma + adipose tissue"] <- "Stroma + adipose tissue"
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "Lymphocyte aggregation"] <- "Lymphocytes"
-levels(temp_csv_combined[,2])[levels(temp_csv_combined[,2]) == "Normal + stroma + Lymphocytes"] <- "Normal + stroma + lymphocytes"
-
-print(sort(as.vector(unique(temp_csv_combined[,2]))))
+## [Alternative solution] use processed cell type information
+meta <- read.csv(file = "../../data/Zenodo4739739/Meta_Data.csv", header = T, stringsAsFactors = F, row.names = 1)
 
 for(sample in unique(infoTable$patientid)){
   print(sample)
-  # print(head(se.list[[sample]]@meta.data))
-
-  temp_csv_combined_subset <- temp_csv_combined[temp_csv_combined$patientid == sample,,drop=F]
-  print(head(temp_csv_combined_subset))
+  meta_sub <- meta[meta$patientid == sample, , drop = F]
+  meta_sub$spot <- gsub("-1$", "-1_1", meta_sub$spot)
+  cat("[info] Spots in se and meta:", nrow(se.list[[sample]]@meta.data), nrow(meta_sub), "\n")
+  se.list[[sample]]@meta.data$Classification <- meta_sub$Classification[match(rownames(se.list[[sample]]@meta.data), meta_sub$spot)]
 }
 
-# append path annotations for CTP samples
-for(sample in unique(infoTable$patientid)){
-  print(sample)
-  temp_csv_combined_subset <- temp_csv_combined[temp_csv_combined$patientid == sample,,drop=F]
-  rownames(temp_csv_combined_subset) <- temp_csv_combined_subset$Barcode
-  # temp_newid <- sample-6
-  rownames(temp_csv_combined_subset) <- gsub(paste0("-1"),
-                                             paste0("-1_1"),
-                                             rownames(temp_csv_combined_subset))
-  colnames(temp_csv_combined_subset) <- c("Barcode", "Classification", "sample")
-
-  if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
-    print("rows match")
-    temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
-  } else {
-    print("rows dont match > filtering")
-    temp_csv_combined_subset <- temp_csv_combined_subset[rownames(temp_csv_combined_subset) %in% rownames(se.list[[sample]]@meta.data),,drop=F]
-  }
-
-  if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
-    print("rows now match")
-    temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
-  } else {
-    print("missing barcodes > appending as NA")
-
-    temp_missing_barcodes <- rownames(se.list[[sample]]@meta.data)[! rownames(se.list[[sample]]@meta.data) %in% rownames(temp_csv_combined_subset)]
-    temp_csv_combined_subset_append <- data.frame(row.names = temp_missing_barcodes,
-                                                  Barcode = temp_missing_barcodes,
-                                                  Classification = "NA")
-    temp_csv_combined_subset_append$sample <- sample
-    temp_csv_combined_subset <- rbind(temp_csv_combined_subset,
-                                      temp_csv_combined_subset_append)
-  }
-
-  if(nrow(temp_csv_combined_subset) == nrow(se.list[[sample]]@meta.data)){
-    print("rows now match")
-    temp_csv_combined_subset <- temp_csv_combined_subset[rownames(se.list[[sample]]@meta.data),,drop=F]
-  } else {
-    print("rows still dont match")
-  }
-
-  if(all.equal(rownames(temp_csv_combined_subset),
-               rownames(se.list[[sample]]@meta.data))){
-    print("vectors align")
-    se.list[[sample]]@meta.data$Classification <- temp_csv_combined_subset[,2]
-    # print(table(se.list[[sample]]@meta.data$Classification))
-  } else {
-    print("vectors dont align")
-  }
-
-
-
-}
+# stat
+spot_class <- lapply(se.list, function(x) { y <- x@meta.data[, c("patientid", "Classification")] })
+spot_class <- do.call("rbind", spot_class)
+spot_class_stat <- t(table(spot_class, useNA = "al"))
+##
 
 # plot new annotations
 dir.create("output", showWarnings = F)

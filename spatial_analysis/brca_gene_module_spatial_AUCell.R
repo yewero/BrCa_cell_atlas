@@ -12,10 +12,10 @@
 
 # setup
 library(zeallot)
+library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
 library(STutility)
 library(ggplot2)
 library(magrittr)
-library(Seurat)
 library(magick)
 library(dplyr)
 library(RColorBrewer)
@@ -31,17 +31,16 @@ library(rstatix)
 
 
 # DIRECTORY
-dir.create("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/brca_gene_modules/")
-setwd("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/brca_gene_modules/")
-dir.create("output")
-
+out_dir <- "brca_gene_modules"
+dir.create(out_dir, showWarnings = F)
 
 # 02: LOAD DATA ---------------------------------------------------------------
 
-se.list <- readRDS("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/RDATA_Visium_brca_objects_stereoscope.Rdata")
+se.list <- readRDS("data_processing/RDATA_Visium_brca_objects_stereoscope.Rdata")
 
 # load gene module gene sets
-temp_metagenes <- read.delim("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/Sept2019/11_visium_brca_metagenes/gene_clusters.txt")
+temp_metagenes <- read.table("../../data/Supp/Table_S5.txt", header = T, sep = "\t", stringsAsFactors = F)
+colnames(temp_metagenes) <- c("gene", "cluster")
 
 # load stereoscope cluster IDs per annotation tier
 temp_sample_id <- c(2,5,7:10)

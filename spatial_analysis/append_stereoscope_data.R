@@ -22,7 +22,8 @@ library(RColorBrewer)
 library(ggpubr)
 
 # DIRECTORY
-dir.create("append_stereoscope", showWarnings = F)
+out_dir <- "append_stereoscope"
+dir.create(out_dir, showWarnings = F)
 
 # 02: LOAD DATA -----------------------------------------------------------
 
@@ -104,4 +105,4 @@ for(sample in unique(infoTable$patientid)){
 
 # SAVE RDS ----------------------------------------------------------------
 
-saveRDS(se.list, "RDATA_Visium_brca_objects_stereoscope.Rdata")
+saveRDS(se.list, file.path(out_dir, "RDATA_Visium_brca_objects_stereoscope.Rdata"))

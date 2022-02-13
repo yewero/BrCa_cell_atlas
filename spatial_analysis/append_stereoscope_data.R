@@ -12,7 +12,7 @@
 
 # setup
 library(zeallot)
-library(Seurat, lib.loc = "/rd1/apps/R-3.5.1/library_ext")
+library(Seurat)
 library(STutility)
 library(ggplot2)
 library(magrittr)

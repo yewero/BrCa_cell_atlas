@@ -40,3 +40,4 @@ vignettes/*.pdf
 
 # Specific files
 spatial_analysis/data_processing/RDATA_Visium_brca_objects.Rdata
+.snakemake

@@ -26,9 +26,8 @@ library(rstatix)
 
 
 # DIRECTORY
-dir.create("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/cellcell_colocalisation/")
-setwd("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/spatial/cellcell_colocalisation/")
-dir.create("output")
+out_dir <- "cellcell_colocalisation"
+dir.create(out_dir, showWarnings = F)
 
 # cbind.fill function 
 require(plyr) # requires plyr for rbind.fill()

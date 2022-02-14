@@ -89,8 +89,8 @@ message("CONFIG")
 
 # Libraries
 suppressPackageStartupMessages({
-  source("code/R/plot_utils.R")
-  source("code/R/survival_utils.R")  
+  source("../code/R/plot_utils.R")
+  source("../code/R/survival_utils.R")
   library(ComplexHeatmap)
   library(RColorBrewer) 
   library(tidyr)

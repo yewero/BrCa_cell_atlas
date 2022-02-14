@@ -22,10 +22,10 @@ world_col <- c("#b2182b", "#1F618D","#f4a582", "#9B59B6","#85929E",
 seurat_obj <- readRDS(file = "BrCa_seurat_obj.Rdata")
 
 #Gene list of interest
-genes_OI <- read.table("gene_list/clinical_immunegene_of_interest.csv"), header = T, sep = ",")
+genes_OI <- read.table("gene_list/clinical_immunegene_of_interest.csv", header = T, sep = ",")
 
 #read cluster annotation across different tiers of breast cancer atlas
-BrCa_subtype_annotation <- read.table("breast_cancer_tiered_cluster_annotation.csv"), header = T, sep = ",")
+BrCa_subtype_annotation <- read.table("breast_cancer_tiered_cluster_annotation.csv", header = T, sep = ",")
 
 
 ###Subset out Seurat obj Myeloid and T-cells only

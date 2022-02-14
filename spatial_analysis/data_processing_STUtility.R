@@ -217,8 +217,7 @@ spot_class_stat <- t(table(spot_class, useNA = "al"))
 ##
 
 # plot new annotations
-dir.create("output", showWarnings = F)
-dir.create("output/Path_annotations", showWarnings = F)
+dir.create(file.path(out_dir, "Path_annotations"), showWarnings = F)
 
 for(sample in unique(infoTable$patientid)){
   temp_sampleID <- paste0(unique(se.list[[sample]]@meta.data$patientid),
@@ -245,7 +244,7 @@ for(sample in unique(infoTable$patientid)){
   #     )
   #   }
   # 
-  # temp_png_function(paste0("output/08_path_annotations_July_SandyTony/01_FeatureOverlay_Classification_",temp_sampleID,".png"))
+  # temp_png_function(paste0(out_dir, "/08_path_annotations_July_SandyTony/01_FeatureOverlay_Classification_",temp_sampleID,".png"))
   # print(temp_ggplot)
   # dev.off()
   
@@ -255,7 +254,7 @@ for(sample in unique(infoTable$patientid)){
           width = 8, 
           height = 5)
     }
-  temp_pdf_function(paste0("output/Path_annotations/01_FeatureOverlay_Classification_",temp_sampleID,".pdf"))
+  temp_pdf_function(paste0(out_dir, "/Path_annotations/01_FeatureOverlay_Classification_",temp_sampleID,".pdf"))
   print(temp_ggplot)
   dev.off()
   

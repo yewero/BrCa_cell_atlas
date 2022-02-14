@@ -13,7 +13,7 @@
 # Config
 library(Matrix)
 library(Seurat)
-source("code/R/plot_utils.R")
+source("../code/R/plot_utils.R")
 library(dplyr)
 library(stringr)
 library(ggplot2)

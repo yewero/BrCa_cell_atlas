@@ -34,9 +34,8 @@ ncol2 = brewer.pal(8,"Dark2")
 
 
 # directory on cluster
-setwd("/share/ScratchGeneral/sunwu/projects/MINI_ATLAS_PROJECT/Sept2019/12_survival_analysis/")
-dir.create("METABRIC_macrophage_survival")
-setwd("METABRIC_macrophage_survival")
+out_dir <- "METABRIC_macrophage_survival"
+dir.create(out_dir, showWarnings = F)
 
 
 # 03: LOAD METABRIC COHORT DATA ---------------------------------------------------------------
